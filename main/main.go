@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/jonathandly/url_shortener"
+	"github.com/jonathandly/urlshortener"
 )
 
 func main() {
@@ -12,20 +12,20 @@ func main() {
 
 	// Build the MapHandler using the mux as the fallback
 	pathsToUrls := map[string]string{
-		"/url_shortener-godoc": "https://godoc.org/github.com/jonathandly/url_shortener",
-		"/yaml-godoc":          "https://godoc.org/gopkg.in/yaml.v2",
+		"/urlshortener-godoc": "https://godoc.org/github.com/jonathandly/urlshortener",
+		"/yaml-godoc":         "https://godoc.org/gopkg.in/yaml.v2",
 	}
 	mapHandler := urlshortener.MapHandler(pathsToUrls, mux)
 
 	// Build the YAMLHandler using the mapHandler as the fallback
 	yaml := `
-		- path: /urlshort 
-		  url: https://github.com/jonathandly/url_shortener 
+		- path: /urlshortener 
+		  url: https://github.com/jonathandly/urlshortener 
 		- path: /url_shortener-final
-		  url: https://github.com/jonathandly/url_shortener/tree/solution
+		  url: https://github.com/jonathandly/urlshortener/tree/tut
 	`
 
-	yamlHandler, err := url_shortener.YAMLHandler([]byte(yaml), mapHandler)
+	yamlHandler, err := urlshortener.YAMLHandler([]byte(yaml), mapHandler)
 	if err != nil {
 		panic(err)
 	}
